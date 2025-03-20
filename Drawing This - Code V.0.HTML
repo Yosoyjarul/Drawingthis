@@ -1,0 +1,156 @@
+```html
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drawing This</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-image: url('https://www.transparenttextures.com/patterns/brushed-alum.png');
+            background-color: #f4f4f9;
+        }
+        #container {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.8);
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            max-width: 400px;
+            width: 100%;
+        }
+        #logo {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 20px;
+            background: red;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 40px;
+            font-weight: bold;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            margin-bottom: 20px;
+            font-size: 2em;
+            color: #2c3e50;
+        }
+        #idea {
+            margin-bottom: 20px;
+            font-size: 1.2em;
+            color: #555;
+            min-height: 60px;
+        }
+        button {
+            padding: 12px 24px;
+            font-size: 1em;
+            color: white;
+            background-color: red;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            font-weight: bold;
+        }
+        button:hover {
+            background-color: darkred;
+        }
+        #footer {
+            margin-top: 20px;
+            font-size: 0.8em;
+            color: #aaa;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .social-icons {
+            margin-top: 10px;
+            display: flex;
+            gap: 15px;
+        }
+        .social-icon {
+            width: 24px;
+            height: 24px;
+            background: red;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+            border-radius: 4px;
+        }
+        .social-icon:hover {
+            transform: scale(1.1);
+        }
+        .instagram-logo::before {
+            content: 'I';
+            position: absolute;
+            font-size: 16px;
+        }
+        .support-button {
+            margin-top: 15px;
+            padding: 10px 20px;
+            background-color: red;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .support-button:hover {
+            background-color: darkred;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <div id="logo">J</div>
+        <h1>Drawing This</h1>
+        <div id="idea">Haz clic en el botón para generar palabras.</div>
+        <button onclick="generateWords()">¿Qué Dibujar?</button>
+        <div id="footer">
+            <div>Creado por @Yosoyjarul</div>
+            <div class="social-icons">
+                <a href="https://x.com/yosoyjarul" target="_blank" class="social-icon">X</a>
+                <a href="https://www.instagram.com/yosoyjarul/" target="_blank" class="social-icon instagram-logo"></a>
+                <a href="https://www.tiktok.com/@yosoyjarul" target="_blank" class="social-icon">T</a>
+            </div>
+            <a href="https://Paypal.me/yosoyjarul" target="_blank" class="support-button">Apóyame</a>
+        </div>
+    </div>
+    <script>
+        const types = "Hombre, Mujer, Bebé, Niño/a, joven, Anciano/a".split(", ");
+        const races = "Elfo/a, Alto Elfo/a, Elfo/a Oscuro, Elfo/a del Bosque, Draw, Enano/a, Orco, Gnomo, Hobbit, Dracónido/a, Goblin, Ferengi, Borg, Klingon, Vulcano/a, Ogro/a, Troll, Gigante, Minotauro/a, Centauro/a, Hombre bestia, Licántropo/a, Hada, Ninfa, Sirena, Hombre Gato, Noble, Imperial, Tritón, Gárgola, Genio, Lamia, Humano/a, Semielfo/a, Semiorco/a, Reptiliano/a, Celestial, Infernal, Abisal, Golem, Autómata, Robot, Cyborg, Alien, Cambiaformas, Dinosaurio, Bestia parlante, Planta consciente, Elemental de Aire, Elemental de Roca, Elemental de fuego, Elemental de Agua, Elemental de Arena, Angel, Demonio/a, Demonio/a de un cuerno, Calavera, No Muerto, Zombie, Homúnculo, Sátiro/Fauno, Harpía, Quimera, Naga, Aracniano/a, Ciguapa, Djinn, Banshee, Dríade, Ent/Hombre árbol, Tiefling, Hombre lobo, Vampiro, Momia, Fantasma, Liche, Androide, Mutante, Híbrido genético, Inteligencia artificial, Meta-Humano, Ser de plasma, Entidad cuántica, Oni, Tengu, Yōkai" .split(", ");
+        const classes = "Faraón Egipcio, Maya/Azteca, Cavernicola, Aborígen, Guerrero/a, Luchador/a, Bárbaro/a, Paladín, Caballero, Berserker, Gladiador/a, Duelista, Campeón/a, Guardián, Defensor/a, Mercenario/a, Escudero/a, Samurái, Maestro/a de armas, Lancero/a, Maestro/a de escudos, Vigilante, Cazarrecompensas, Centinela, Legionario/a, Ladrón/a, Asesino/a, Acróbata, Ninja, Espía, Saboteador/a, Saqueador/a, Sombra, Infiltrador/a, Emboscador/a, Contrabandista, Carterista, Merodeador/a, Acechador/a, Sicario/a, Estafador/a, Vigilante nocturno, Explorador/a urbano, Falsificador/a, Trampero/a, Mago/a, Hechicero/a, Brujo/a, Nigromante, Ilusionista, Invocador/a, Elementalista, Arcanista, Encantador/a, Alquimista, Mago de batalla, Conjurador/a, Ocultista, Ritualista, Criptomago/a, Astrólogo/a, Cronómago/a, Piromante, Criomante, Mago/a Blanco, Mago/a oscuro, Mago/a elemental, Clérigo/a, Chamán, Oráculo, Monje, Médium, Inquisidor/a, Exorcista, Templario/a, Profeta, Purificador/a, Sanador/a, Misionero/a, Custodio sagrado, Bardo/a, Artesano/a, Sabio/a, Erudito/a, Diplomático/a, Cocinero/a, Herbolario/a, Mentalista, Mecánico/a, Cartógrafo/a, Negociador/a, Consejero/a, Estratega, Maestro de bestias, Portador/a de estandarte, Motivador/a, Ranger, Cazador/a, Bestialista, Guardabosques, Naturalista, Guía, Rastreador/a, Domador/a, Ermitaño/a, Guardián de la naturaleza, Druida, Botánico/a, Jinete de bestias, Ingeniero/a, Artillero/a, Caballero arcano, Maestro/a de runas, Caza-magos, Monje de guerra, Médico de campo, Tirador/a, Asesino, Danzante de espadas, Jinete dragón, Guardia, Marinero/a, Demonólogo/a, Pistolero/a, Escriba, Minero/a, Comerciante, Navegante, Herrero/a, Carpintero/a, Joyero/a, Arquitecto/a, Sastre, Agricultor/a, Pescador/a, Boticario/a, Perfumista, Gambito, Banquero/a, Empresario/a, Psíquico/a, Telépata, Espiritista, Vidente, Hipnotizador, Maestro del miedo, Manifestante, Sembrador de pesadillas, Manipulador mental, Relojero, Marioneta, Viajero del tiempo, Ángel caído, Portador de plagas, Constructor de golems, Mago de sangre, Señor de las sombras, Matemático arcano, Titiritero, Coleccionista de almas, Devorador de mundos, Guardián de dimensiones, Prestidigitador arcano, Gánster, Mafioso/a, Hacker, Alienígena, Agente secreto, Policía, Detective, Terrorista, Periodista, Científico/a loco, Médico forense, Soldado de élite, Francotirador/a, Experto/a en explosivos, Piloto de combate, Guardaespaldas, Policía de tránsito, Agente de inteligencia, Fuerzas especiales, Experto en demoliciones, Analista de datos, Biohacker, Cibernético, Contrabandista espacial, Cazador/a de recompensas espacial, Mutante, Propagandista, Dron, Ingeniero/a genético, Traficante de tecnología, Nanoterrorista, Robot/Androide, Cyborg, Explorador/a espacial, Piloto de mecha, Comandante de nave espacial, Colono planetario, Terraformador, Tecno-chamán, Ingeniero/a de materia oscura, Biotecnólogo/a, Negociador interestelar, Lingüista xenomorfo, Cazador/a de anomalías, Vigilante dimensional, Arqueólogo/a espacial, Comerciante interestelar, Pirata espacial, Minero/a planetario, Soldado de asalto espacial, Contrabandista de tecnología prohibida, Controlador de IA, Hacker neural, Ingeniero/a de realidad virtual, Manipulador/a genético, Mercenario/a post-humano, Entidad digital, Clon, Psiconavegante, Técnico de teletransporte, Científico/a de wormholes, Empático de IA, Especialista en terraformación, Diplomático/a interplanetario, Desguazador espacial, Comandante planetario".split(", ");
+        const objects = "Espada, Hacha, Martillo, Maza, Daga, Lanza, Garrote, Tridente, Látigo, Arco, Ballesta, Pistola, Rifle, Cañón, Tirachinas/Tirapiedras, Cuchillo arrojadizo, Bombas de humo, Cuerda y gancho, Kit de falsificación, Trampas explosivas, Kit de espionaje, Bastón mágico, Grimorio, Anillo mágico, Varita, Amuleto, Cruz, Agua bendita, Relicario, Libro sagrado, Tótem, Kit de hierbas, Mapa y brújula, Utensilios de cocina, Herramientas, Bolsa de trueque, Pistola láser, Generador de campo de fuerza, Implantes cibernéticos, Controlador de IA, Científico de wormholes, Espadón, Bastón de combate, Puño americano, Cerbatana, Búmeran, Katana, Llave maestra, Pergaminos mágicos, Cristal de energía, Rosario bendecido, Tótem sagrado, Antorcha, Cuerda reforzada, Exoesqueleto, Dron explorador".split(", ");
+        const animals = "León, Delfín, Dragón, Tigre, Serpiente, Elefante, Oso, Lobo, Zorro, Cebra, Jirafa, Mono, Gorila, Panda, Koala, Canguro, Rinoceronte, Hipopótamo, Camello, Pantera, Jaguar, Puma, Tiburón, Ballena, Orca, Medusa, Calamar, Pulpo, Cangrejo, Langosta, Tortuga, Cocodrilo, Caimán, Iguana, Gecko, Salamandra, Rana, Sapo, Murciélago, Gato, Perro, Ratón, Rata, Hámster, Conejo, Erizo, Ardilla, Mapache, Tejón, Nutria, Castor, Ciervo, Alce, Búfalo, Antílope, Cabra, Oveja, Caballo, Burro, Mula, Cerdo, Vaca, Buey, Búho, Cuervo, Gaviota, Colibrí, Pavo real, Flamenco, Pingüino, Avestruz, Casuario, Kiwi, Tucán, Loro, Cacatúa, Canario, Mirlo, Petirrojo, Gorrión, Águila, Buitre, Condor, Halcón, Azor, Lechuza, Buho chico, Dragón de Komodo, Lagarto, Salamandra, Gato salvaje, Perro salvaje, Lobo ártico, Zorro ártico".split(", ");
+        function getRandomElement(array) {
+            return array[Math.floor(Math.random() * array.length)];
+        }
+        function generateWords() {
+            const type = getRandomElement(types);
+            const race = getRandomElement(races);
+            const characterClass = getRandomElement(classes);
+            const object = getRandomElement(objects);
+            const animal = getRandomElement(animals);
+            const idea = `${type}, ${race}, ${characterClass}, ${object}, ${animal}`;
+            document.getElementById("idea").textContent = idea;
+        }
+    </script>
+</body>
+</html>
+```
